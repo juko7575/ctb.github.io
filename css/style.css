@@ -4,8 +4,8 @@
        Layout
     ===================================== */
 
-    --content-width: 1300px;
-    --page-width: 1600px;
+    --content-width: 1600px;
+    --page-width: 1800px;
 
     --space-xs: 4px;
     --space-sm: 8px;
@@ -27,9 +27,15 @@
        Colors
     ===================================== */
 
-    --color-bg: #131313;
+    /* Colors */
+    /* Red #592625 */
+    /* Yel #d8c453 */
+
+    --color-bg: #090909;
     --color-bg-secondary: #1b1b1b;
     --color-bg-tertiary: #232323;
+    --grid-placard-bg: #020202eb;
+
 
     --color-text: rgb(249, 246, 239);
     --color-text-muted: #c5c2bb;
@@ -38,7 +44,7 @@
     --color-accent: #d8c453;
     --color-accent-dark: #592625;
 
-    --color-overlay: rgba(8, 8, 8, 0.72);
+    --color-overlay: #080808b8;
 
     /* =====================================
        Motion
@@ -52,6 +58,14 @@
     /* Shared transition */
     --transition: var(--transition-fast);
 
+    --glow-accent: 0 0 10px rgba(255, 255, 255, 0.18);
+    --glow-white: 0 0 10px rgba(255, 255, 255, 0.18);
+    --glow-white-strong: 0 0 14px rgba(255, 255, 255, 0.22);
+
+    --search-underline: var(--color-accent);
+    --search-muted: var(--color-text-muted);
+    --search-active-glow: rgba(255,255,255,0.08);
+
     /* =====================================
        Grid
     ===================================== */
@@ -60,14 +74,13 @@
 
     --grid-transition: 140ms ease;
 
-    --grid-placard-bg: rgba(10, 10, 10, 0.92);
     --grid-placard-text: var(--color-text);
     --grid-placard-muted: var(--color-text-muted);
     --grid-placard-padding: var(--space-lg);
 
     --grid-title-size: 15px;
     --grid-meta-size: 12px;
-    --grid-desc-size: 12px;
+    --grid-desc-size: 16px;
 
     --grid-meta-spacing: 0.08em;
 
@@ -77,9 +90,9 @@
        Typography
     ===================================== */
 
-    --font-label: 14px;
-    --font-title: 16px;
-    --font-meta: 11px;
+    --font-label: 18px;
+    --font-title: 32px;
+    --font-meta: 16px;
 
     --font-spacing-label: 0.04em;
     --font-spacing-meta: 0.06em;
@@ -93,6 +106,43 @@
 
     --toc-width: 150px;
     --toc-gap: 30px;
+
+    /* =====================================
+       Tag Browser
+    ===================================== */
+
+    --search-panel-padding: var(--space-md);
+    --search-panel-gap: var(--space-lg);
+    
+    --search-category-width: 11rem;
+    --search-row-height: 2.25rem;
+
+
+    /* Floating Surfaces */
+
+    --glass-bg: rgba(26,26,26,.82);
+    --glass-border: rgba(255,255,255,.05);
+    --glass-highlight: rgba(255,255,255,.045);
+    --glass-shadow: 0 18px 40px rgba(0,0,0,.38);
+    --glass-blur: 14px;
+    --grid-image-blur: 5px;
+    --grid-image-darken: .45;   
+    --surface-glass: rgba(26, 26, 26, 0.82);
+    --surface-glass-sidebar: rgba(255,255,255,0.02);
+    --surface-glass-overlay: rgba(18,18,18,.46);
+    --surface-glass-border: rgba(255,255,255,0.05);
+
+    --surface-glass-shadow:
+        0 18px 40px rgba(0,0,0,.38),
+        0 0 18px rgba(255,255,255,.025);
+
+    --surface-glass-blur: 14px;
+
+    /* Selection */
+
+    --selection-width: 2px;
+    --selection-length: 100%;
+
 }
 
 
@@ -609,84 +659,135 @@ a:hover {
 /* Artifact Image */
 
 .grid-media {
+
     position: relative;
+
     width: 100%;
+
     aspect-ratio: 1 / 1;
+
     overflow: hidden;
+
 }
 
 .grid-media img {
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 
-    transform: scale(1);
-    transition: transform var(--grid-transition), opacity var(--grid-transition);
+    transition:
+
+        transform var(--grid-transition),
+
+        filter var(--grid-transition),
+
+        opacity var(--grid-transition);
+
 }
 
 /* Museum Placard */
 
 .grid-placard {
+
     position: absolute;
+
     inset: 0;
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
 
     padding: var(--grid-placard-padding);
 
-    background: var(--grid-placard-bg);
-    padding: var(--space-lg);
+    background: var(--surface-glass);
 
-    color: var(--grid-placard-text);
+    backdrop-filter: blur(var(--surface-glass-blur));
+    -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+
+    border: 1px solid var(--surface-glass-border);
+
+    box-shadow: var(--surface-glass-shadow);
+
+    color: var(--color-text);
 
     opacity: 0;
-    transform: translateY(6px);
 
     transition:
-        opacity var(--grid-transition),
-        transform var(--grid-transition);
+
+        opacity var(--grid-transition);
+
+}
+.grid-placard::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: var(--selection-width);
+
+    background: var(--color-accent);
+
+    opacity: 0;
+
+    transition:
+
+        opacity var(--transition-fast);
+
 }
 
 /* Title */
 
 .grid-placard-title {
+
     font-size: var(--font-title);
+
     font-weight: var(--grid-title-weight);
+
     letter-spacing: var(--font-spacing-label);
+
     margin-bottom: var(--space-sm);
-    color: var(--grid-placard-text);
+
 }
 
 /* Tags */
 
 .grid-placard-tags {
+
     display: flex;
+
     flex-wrap: wrap;
+
     gap: var(--space-xs);
 
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-md);
 
-    opacity: 0.75;
 }
 
 .grid-placard .tag {
-    font-size: var(--font-meta);
-    letter-spacing: var(--font-spacing-meta);
-    padding: 2px 6px;
+
+    margin: 0;
+
 }
 
 
 /* Description */
 
 .grid-placard-desc {
-    font-size: var(--grid-desc-size);
-    color: var(--grid-placard-muted);
-    line-height: 1.5;
 
-    max-height: 6em;
-    overflow: hidden;
+    color: var(--color-text-muted);
+
+    font-size: var(--font-label);
+
+    line-height: 1.6;
+
 }
 
 /* Hover State */
@@ -704,13 +805,27 @@ a:hover {
 }
 
 .grid-item:hover .grid-media img {
-    opacity: 0.05;
-    transform: scale(1.015);
+
+    transform: scale(var(--grid-image-scale-hover));
+
+    filter:
+
+        blur(5px)
+
+        brightness(.45);
+
 }
 
 .grid-item:hover .grid-placard {
+
     opacity: 1;
-    transform: translateY(0);
+
+}
+
+.grid-item:hover .grid-placard::before {
+
+    opacity: 1;
+
 }
 
 /* Grid Tags */
@@ -743,58 +858,61 @@ a:hover {
 
 
 /* =====================================
-   Search
+   Search (Index Line Style)
 ===================================== */
-/* Search Container */
 
+/* Container (layout only, no visual weight) */
 #search-box {
 
     display: flex;
-
     align-items: center;
+    gap: var(--space-sm);
 
-    gap: 10px;
-
-    padding: 0 14px;
-
+    padding: 0 var(--space-md);
     height: 48px;
 
-    background: var(--color-bg-secondary);
-
-    border: 1px solid var(--color-border);
-
-    border-radius: var(--border-radius);
-
-    transition:
-        border-color var(--transition-fast),
-        background var(--transition-fast);
-
-}
-/* Active */
-
-#search-box:focus-within {
-
-    border-color: var(--color-accent);
+    position: relative;
 
 }
 
+/* Underline indicator */
+#search-box::after {
 
-/* Search Input */
+    content: "";
 
+    position: absolute;
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: 6px;
+
+    height: 1px;
+
+    background: var(--color-border);
+
+    transition: background var(--transition-fast), transform var(--transition-fast);
+
+    transform-origin: left;
+}
+
+/* Active underline */
+#search-box:focus-within::after {
+
+    background: var(--color-accent);
+
+}
+
+
+/* Input (becomes the only visible search element) */
 #search {
 
     flex: 1;
-
     min-width: 0;
 
     border: none;
-
     outline: none;
-
     background: transparent;
 
     color: var(--color-text);
-
     font: inherit;
 
     padding: 0;
@@ -802,35 +920,32 @@ a:hover {
 }
 
 /* Placeholder */
-
 #search::placeholder {
 
     color: var(--color-text-muted);
-
-    opacity: .7;
+    opacity: 0.7;
 
 }
+
+/* ================================
+   Tags (right side inside line)
+================================ */
 
 #search-tags {
 
     display: flex;
-
     align-items: center;
-
-    gap: 6px;
+    gap: var(--space-xs);
 
     margin-left: auto;
 
     overflow-x: auto;
-
     scrollbar-width: none;
 
 }
 
 #search-tags::-webkit-scrollbar {
-
     display: none;
-
 }
 
 /* =====================================
@@ -985,37 +1100,35 @@ a:hover {
    Tag Suggestions / Browser
 ===================================== */
 
-/* Search Popup */
-
-/* Search Popup */
+/* Suggestions Box */
 
 #tag-suggestions {
 
     position: absolute;
 
-    top: calc(100% + 8px);
+    top: calc(100% + var(--space-sm));
 
     left: 0;
     right: 0;
 
     display: none;
 
-    background: var(--color-bg-secondary);
-
-    border: 1px solid var(--color-border);
-
     overflow: hidden;
 
     z-index: 100;
 
+    background: var(--surface-glass);
+
+    backdrop-filter: blur(var(--surface-glass-blur));
+    -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+
+    border: 1px solid var(--surface-glass-border);
+
+    box-shadow: var(--surface-glass-shadow);
+
 }
 
-/* -----------------------------
-   Browse Layout
------------------------------ */
-
-/* Categories */
-
+/* Categories Section */
 .tag-browser {
 
     display: flex;
@@ -1024,30 +1137,73 @@ a:hover {
 
 }
 
-.tag-browser-groups {
-
-    width: 180px;
-
-    border-right: 1px solid var(--color-border);
-
-    background: var(--color-bg);
-
-}
-
 .tag-browser-group {
 
-    padding: 10px 14px;
+    position: relative;
+
+    padding: var(--space-sm) var(--space-md);
+
+    color: var(--color-text-muted);
 
     cursor: pointer;
 
-    color: var(--color-text-muted);
+    transition:
+
+        color var(--transition-fast);
+
+}
+
+.tag-browser-group::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: var(--selection-width);
+    height: var(--selection-length);
+
+    background: var(--color-accent);
+
+    transform: translateY(-50%);
+
+    opacity: 0;
+
+    transition:
+        opacity var(--transition-fast);
 
 }
 
 .tag-browser-group:hover,
 .tag-browser-group.active {
 
-    background: var(--color-bg-tertiary);
+    color: var(--color-text);
+
+}
+
+.tag-browser-group:hover::before,
+.tag-browser-group.active::before {
+
+    opacity: 1;
+
+}
+
+.tag-browser-groups {
+
+    width: 180px;
+
+    background: var(--surface-glass-sidebar);
+
+    border-right: 1px solid var(--surface-glass-border);
+
+}
+
+.tag-browser-group:hover,
+.tag-browser-group.active {
+
+    background: rgba(255,255,255,.045);
 
     color: var(--color-text);
 
@@ -1071,27 +1227,27 @@ a:hover {
 
 .tag-suggestion {
 
-    padding: 10px 12px;
-
-    cursor: pointer;
+    padding: var(--space-sm) var(--space-md);
 
     color: var(--color-text);
+
+    transition:
+        background var(--transition-fast);
 
 }
 
 .tag-suggestion:hover {
 
-    background: var(--color-bg-tertiary);
+    background: rgba(255,255,255,.04);
 
 }
 
 .tag-suggestion small {
 
-    float: right;
-
     color: var(--color-text-muted);
 
 }
+
 
 /* =====================================
    TOC
@@ -1304,6 +1460,8 @@ a:hover {
 /* =====================================
    Header
 ===================================== */
+
+/* Main container */
 .site-header {
 
     max-width: var(--content-width);
@@ -1311,70 +1469,115 @@ a:hover {
     margin: 48px auto 36px;
 
     display: flex;
-
     flex-direction: column;
 
     gap: 18px;
 
+    position: relative;
+
+    padding: 16px 0;
 }
 
 
+/* Top row */
 .header-top {
 
     display: flex;
-
     align-items: center;
 
     gap: 24px;
 
+    position: relative;
 }
 
+
+/* Logo */
 .site-logo {
 
     display: flex;
-
     align-items: center;
 
     gap: 14px;
 
     color: var(--color-text);
-
     text-decoration: none;
 
     font-size: 26px;
-
-    font-weight: 600;
+    font-weight: 500;
 
     letter-spacing: 0.04em;
 
     white-space: nowrap;
 
+    position: relative;
+
+    transition:
+        opacity var(--transition-fast),
+        text-shadow var(--transition-fast),
+        transform var(--transition-fast);
 }
 
-.site-logo img {
+/* hover state */
+.site-logo:hover {
 
+    opacity: 0.9;
+
+    text-shadow: var(--glow-white);
+
+}
+
+/* image stays stable but participates in glow subtly */
+.logoSkull {
     width: 40px;
-
     height: 40px;
 
+    transition:
+        filter var(--transition-fast),
+        transform var(--transition-fast);
 }
 
+.logoCTB {
+    width: auto;
+    height: 40px;
+
+    transition:
+        filter var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+/* glow affects whole identity block when hovered */
+.site-logo:hover img {
+
+    filter: drop-shadow(var(--glow-white));
+    transform: scale(1.02);
+}
+
+
+/* Search wrapper (ONLY interactive area now) */
 .header-search {
 
     position: relative;
-
     flex: 1;
 
+    transition:
+/*         box-shadow var(--transition-fast),
+ */        transform var(--transition-fast);
 }
 
+/* subtle “active presence” only when interacting with search */
+.header-search:focus-within {
+
+/*     box-shadow: var(--glow-accent);
+ */}
+
+
+/* Links */
 .header-links {
 
     display: flex;
-
     gap: 28px;
 
     align-items: center;
-
 }
 
 .header-links a {
@@ -1382,29 +1585,64 @@ a:hover {
     font-size: 12px;
 
     text-transform: uppercase;
-
-    letter-spacing: .12em;
+    letter-spacing: 0.12em;
 
     font-weight: 500;
 
     color: var(--color-text);
 
-    opacity: .55;
+    opacity: 0.55;
 
+    position: relative;
+
+    transition:
+        opacity var(--transition-fast),
+        color var(--transition-fast);
 }
 
 .header-links a:hover {
-
-    opacity: .9;
-
+    opacity: 0.85;
+    transform: scale(1.02);
 }
 
+/* active state */
 .header-links a.active {
 
     opacity: 1;
+    color: var(--color-text);
 
-    color: var(--color-accent);
+    position: relative;
 
+    transition:
+        opacity var(--transition-fast),
+        color var(--transition-fast),
+        text-shadow var(--transition-fast);
+
+    text-shadow: var(--glow-white);
+}
+
+/* underline + glow */
+.header-links a.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -6px;
+
+    height: 1px;
+
+    background: var(--color-accent);
+
+    box-shadow: var(--glow-white);
+}
+
+/* text glow */
+.header-links a.active {
+
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
 }
 
 /* =====================================
