@@ -117,7 +117,7 @@
     --overlay-nav-blur: 12px;
     --overlay-nav-line: 2px;
 
-    --overlay-sidebar-offset: -100px;
+    --overlay-sidebar-offset: 00px;
 
     --overlay-sidebar-left: calc(
         50% +
@@ -507,6 +507,62 @@ a,
     flex: 1;
 
     min-width: 0;
+
+}
+
+/* =====================================
+   Lead
+===================================== */
+
+.block-lead {
+
+    display: flow-root;
+
+}
+
+.lead-image {
+
+    float: left;
+
+    width: 50%;
+
+    margin:
+
+        0
+
+        var(--space-lg)
+
+        var(--space-md)
+
+        0;
+
+}
+
+.lead-image img {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.lead-image figcaption {
+
+    margin-top: var(--space-sm);
+
+    color: var(--color-text-muted);
+
+}
+
+.lead-text {
+
+    line-height: 1.7;
+
+}
+
+.lead-text p:first-child {
+
+    margin-top: 0;
 
 }
 
@@ -2023,7 +2079,7 @@ a:hover {
 
     position: fixed;
 
-    top: 48px;
+    top: 40px;
 
     left: calc(
         50% +

@@ -467,6 +467,53 @@ const BLOCKS = {
     
     },
 
+    lead(block, pageName) {
+
+        const width =
+            block.image?.width || "100%";
+    
+        return `
+            <section class="block block-lead">
+    
+                <figure class="lead-image">
+    
+                    <img
+                        src="data/${pageName}/${block.image.src}"
+                        alt="${block.image.caption || ""}"
+                        style="width:${width};"
+                    >
+    
+                    ${
+                        block.image.caption
+                        ? `
+                            <figcaption>
+                                ${formatText(block.image.caption)}
+                            </figcaption>
+                        `
+                        : ""
+                    }
+    
+                </figure>
+    
+                <section
+                    id="page-top"
+                    class="block block-title"
+                >
+                    <h1>
+                        ${formatText(block.title || "")}
+                    </h1>
+                </section>
+                <div class="lead-text">
+    
+                    ${formatText(block.text || "")}
+    
+                </div>
+    
+            </section>
+        `;
+    
+    },
+
     list(block) {
 
         return `
